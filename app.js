@@ -14,6 +14,7 @@ app.use(
     origin: [
       "http://localhost:3001",
       "https://task-manager-frontend-xi-kohl.vercel.app",
+      "https://task-manager-frontend-ig320sio6-frontenddevs-projects-468f5e6e.vercel.app",
     ],
     credentials: true,
   }),
