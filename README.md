@@ -4,6 +4,11 @@ A RESTful backend API for a full-stack Task Manager application built with Node.
 
 The API provides user authentication, authorization, task management, input validation, filtering, sorting, and pagination.
 
+## Live Demo
+
+[View Live Application](https://task-manager-frontend-xi-kohl.vercel.app)
+
+
 ## Features
 
 * User registration and login
