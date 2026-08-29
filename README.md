@@ -14,8 +14,9 @@ The API provides user authentication, authorization, task management, input vali
 * Protected API routes
 * Role-based authorization
 * User-specific task ownership
+* Admin access to tasks across users
 * Create, read, update, and delete tasks
-* Task filtering
+* Task filtering by completion status
 * Task sorting
 * Pagination
 * Request validation with Zod
@@ -73,6 +74,14 @@ Passwords are hashed with bcrypt before being stored in the database.
 
 The API also uses authorization middleware to restrict certain operations based on the authenticated user's role.
 
+### User Ownership & Authorization
+
+Regular users can access and manage only their own tasks.
+
+Administrators can access and manage tasks belonging to all users.
+
+This authorization logic is applied when retrieving, updating, and deleting tasks.
+
 ## Task Management
 
 Authenticated users can:
@@ -81,11 +90,13 @@ Authenticated users can:
 * View their tasks
 * Update their tasks
 * Delete their tasks
-* Search/filter tasks
+* Filter tasks by completion status
 * Sort tasks
 * Navigate tasks using pagination
 
 Tasks are associated with their owning user through a MongoDB ObjectId reference.
+
+Administrators can access tasks across users according to their assigned role.
 
 ## API Architecture
 
@@ -181,12 +192,13 @@ task-manager-api/
 
 ### Tasks
 
-| Method | Endpoint         | Description   |
-| ------ | ---------------- | ------------- |
-| GET    | `/api/tasks`     | Get tasks     |
-| POST   | `/api/tasks`     | Create a task |
-| PATCH  | `/api/tasks/:id` | Update a task |
-| DELETE | `/api/tasks/:id` | Delete a task |
+| Method | Endpoint         | Description      |
+| ------ | ---------------- | ---------------- |
+| GET    | `/api/tasks`     | Get tasks        |
+| GET    | `/api/tasks/:id` | Get a task by ID |
+| POST   | `/api/tasks`     | Create a task    |
+| PATCH  | `/api/tasks/:id` | Update a task    |
+| DELETE | `/api/tasks/:id` | Delete a task    |
 
 ### Health Check
 
@@ -196,27 +208,46 @@ task-manager-api/
 
 ## Query Features
 
-The tasks endpoint supports query parameters for managing task results.
+The tasks endpoint supports filtering, sorting, and pagination through query parameters.
 
-Examples:
+### Filter by Completion Status
+
+Get completed tasks:
 
 ```text
 GET /api/tasks?completed=true
 ```
 
+Get incomplete tasks:
+
 ```text
 GET /api/tasks?completed=false
 ```
+
+### Pagination
+
+Request a specific page and number of tasks per page:
 
 ```text
 GET /api/tasks?page=1&limit=10
 ```
 
+The API returns pagination information including:
+
+* Current page
+* Limit
+* Total tasks
+* Total pages
+
+### Sorting
+
+Sort tasks by creation date:
+
 ```text
 GET /api/tasks?sort=-createdAt
 ```
 
-These features allow the frontend to request filtered, sorted, and paginated task data.
+The default sorting order is newest tasks first.
 
 ## Environment Variables
 
@@ -270,9 +301,7 @@ http://localhost:3000
 
 This API is used by the Task Manager Next.js frontend.
 
-Frontend repository:
-
-https://github.com/Eagle-2026/task-manager-frontend
+[Task Manager Frontend](https://github.com/Eagle-2026/task-manager-frontend)
 
 ## Future Improvements
 
