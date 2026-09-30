@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store
+completeLesson.js
+lesson-steps.js
+old-taskController.js
+learnFeatures.js
+lesson-steps.js
+
