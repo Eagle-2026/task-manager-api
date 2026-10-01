@@ -8,6 +8,7 @@
   "typecheck": "tsc --noEmit",
   "typecheck:test": "tsc --noEmit -p tsconfig.test.json",
   "start": "node dist/server.js",
+  "start:render": "concurrently -k \"node dist/server.js\" \"node dist/workers/taskWorker.js\"",
   "worker:dev": "tsx watch workers/taskWorker.ts",
   "worker:tasks": "node dist/workers/taskWorker.js",
   "test": "jest --runInBand"
@@ -20,6 +21,7 @@
     "bcrypt": "^6.0.0",
     "bullmq": "^6.3.4",
     "cloudinary": "^2.11.0",
+    "concurrently": "^10.0.5",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
