@@ -289,6 +289,17 @@ export const signup = asyncHandler(
   async (req: SignupRequest, res: Response) => {
     const { name, email, password } = req.body;
 
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      res.status(409).json({
+        status: "fail",
+        message: "An account with this email already exists",
+      });
+
+      return;
+    }
+
     const user = await User.create({
       name,
       email,
