@@ -109,6 +109,7 @@ app.use(helmet());
 
 const allowedOrigins = [
   "http://localhost:3001",
+  "https://task-manager-frontend-xi-kohl.vercel.app",
   process.env.FRONTEND_URL,
 ].filter((origin): origin is string => Boolean(origin));
 
